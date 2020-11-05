@@ -1556,7 +1556,6 @@ public class PrimaryController implements Initializable {
      */
     private void openNewWindow(String fileName) throws IOException {
         Scene scene = new Scene(loadFXML(fileName));
-        Scene scene2 = new Scene(tabPane);
         Stage stage = new Stage();
         stage.setTitle(fileName);
         stage.setScene(scene);
@@ -1591,8 +1590,8 @@ public class PrimaryController implements Initializable {
         configureFileChooser(fileChooser);                          //Initialize file chooser settings
         addCanvas();                                                //Put all the FXML imported canvases into the list
         addTempCanvas();                                            //Put all the FXML imported tempCanvases into the list
-        gc = canvas.get(tabIndex).getGraphicsContext2D();                         //set Graphics contexts to respective canvases
-        //gc.setImageSmoothing(false);
+        gc = canvas.get(tabIndex).getGraphicsContext2D();           //set Graphics contexts to respective canvases
+        gc.setImageSmoothing(false);
         tempGraphicsContext = tempCanvas.get(tabIndex).getGraphicsContext2D();
         gc.setStroke(Color.BLACK);                                  //set stroke color and width
         gc.setLineWidth(2);
@@ -1620,12 +1619,13 @@ public class PrimaryController implements Initializable {
         firstRedo = true;
         scaleX = 1.0;                                               //Scale inital values
         scaleY = 1.0;
-        WritableImage wi = new WritableImage((int) canvas.get(tabIndex).getWidth(), (int) canvas.get(tabIndex).getHeight());                 //add a writable image of the intial canvas to the undo stack and the tabs list
+        WritableImage blankCanvas = new WritableImage((int) canvas.get(tabIndex).getWidth(), (int) canvas.get(tabIndex).getHeight());                 //add a writable image of the intial canvas to the undo stack and the tabs list
         for (int i = 0; i < 7; i++) {                               //allow free movement of selection canvas
             tempCanvas.get(i).setManaged(false);
             Stack<WritableImage> stack = new Stack<>();
-            stack.add(wi);
-            undo.add(i, stack);
+            redo.add(stack);
+            stack.add(blankCanvas);
+            undo.add(stack);
         }
         //Timeline for counting down the timer
         saveTimer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {

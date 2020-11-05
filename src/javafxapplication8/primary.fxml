@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1700.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication8.PrimaryController">
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="javafxapplication8.PrimaryController">
     <children>
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
@@ -218,11 +218,11 @@
                 </VBox>
             </items>
         </ToolBar>
-        <TabPane fx:id="tabPane" layoutX="135.0" layoutY="62.0" prefHeight="1009.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+        <TabPane fx:id="tabPane" layoutX="135.0" layoutY="62.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
             <tabs>
                 <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 1 ">
                     <content>
-                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
                             <content>
                                 <StackPane fx:id="stackPane" alignment="TOP_LEFT" centerShape="false">
                                     <children>
