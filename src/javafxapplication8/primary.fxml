@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1700.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication8.PrimaryController">
+    <children>
+        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="menuOpenFile" mnemonicParsing="false" onAction="#openFile" text="Open File">
+                            <accelerator>
+                                <KeyCodeCombination alt="DOWN" code="F" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="menuSave" mnemonicParsing="false" onAction="#saveFile" text="Save">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#saveAsFile" text="Save As" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuQuit" text="Quit">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuUndo" text="Undo">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuRedo" text="Redo">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuZoomIn" text="Zoom In">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="ADD" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuZoomOut" text="Zoom Out">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="MINUS" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#menuZoomReset" text="Zoom Reset">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuAbout" text="About" />
+                        <MenuItem mnemonicParsing="false" onAction="#menuHelp" text="Help" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ToolBar layoutX="8.0" layoutY="32.0" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="32.0">
+            <items>
+                <VBox prefWidth="120.0" spacing="5.0">
+                    <children>
+                        <MenuButton id="toolsButton" fx:id="toolBarToolSelect" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="120.0" text="Hand">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#brushHand" text="Hand" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushPencil" text="Pencil" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushLine" text="Line" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushDropper" text="Dropper" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushEraser" text="Eraser" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushText" text="Text" />
+                                <MenuItem mnemonicParsing="false" onAction="#brushSelect" text="Select" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton id="shapesButton" fx:id="toolBarShapeSelect" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="120.0" text="Shapes">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#shapeSquare" text="Square" />
+                                <MenuItem mnemonicParsing="false" onAction="#shapeRectangle" text="Rectangle" />
+                                <MenuItem mnemonicParsing="false" onAction="#shapeEllipse" text="Ellipse" />
+                                <MenuItem mnemonicParsing="false" onAction="#shapeCircle" text="Circle" />
+                                <MenuItem mnemonicParsing="false" onAction="#shapeRoundRectangle" text="Round Rectangle" />
+                                <MenuItem mnemonicParsing="false" onAction="#shapePolygon" text="Polygon" />
+                            </items>
+                        </MenuButton>
+                        <MenuButton id="lineSizeButton" fx:id="toolBarlineWidthOptions" minHeight="32.0" mnemonicParsing="false" popupSide="RIGHT" prefWidth="120.0" text="Line Size">
+                            <items>
+                                <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+                                    <content>
+                                        <VBox alignment="TOP_CENTER" spacing="15.0">
+                                            <children>
+                                                <HBox spacing="5.0">
+                                                    <children>
+                                                        <TextField fx:id="brushSizeText" onAction="#toolBarBrushSizeTyped" promptText="SIZE" text="2" />
+                                                        <Label text="px" />
+                                                    </children>
+                                                </HBox>
+                                                <Slider fx:id="brushSizeSlider" minorTickCount="4" onMouseClicked="#toolBarBrushSizeSlider" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="2.0" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+                                            </padding>
+                                        </VBox>
+                                    </content>
+                                </CustomMenuItem>
+                            </items>
+                        </MenuButton>
+                        <MenuButton id="fillButton" fx:id="toolBarFillOptions" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="120.0" text="Fill">
+                            <items>
+                                <CheckMenuItem fx:id="setShapeFill" mnemonicParsing="false" onAction="#toolBarShapeFill" selected="true" text="Shape Fill" />
+                                <CheckMenuItem fx:id="setTextFill" mnemonicParsing="false" onAction="#toolBarTextFill" selected="true" text="Text Fill" />
+                            </items>
+                        </MenuButton>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets bottom="4.0" top="7.0" />
+                            </VBox.margin>
+                        </Separator>
+                        <Label text="Line Color:" />
+                        <HBox prefHeight="32.0" prefWidth="120.0" spacing="5.0">
+                            <children>
+                                <ColorPicker fx:id="lineColorPicker" nodeOrientation="LEFT_TO_RIGHT" onAction="#lineColorPicked" prefHeight="32.0" prefWidth="33.0" />
+                                <Label fx:id="lineColorPickerLabel" prefHeight="32.0" prefWidth="82.0" text="Black" textAlignment="CENTER" wrapText="true" />
+                            </children>
+                        </HBox>
+                        <Label prefHeight="32.0" prefWidth="120.0" text="Fill Color:" />
+                        <HBox prefHeight="32.0" prefWidth="120.0" spacing="5.0">
+                            <children>
+                                <ColorPicker fx:id="fillColorPicker" nodeOrientation="LEFT_TO_RIGHT" onAction="#fillColorPicked" prefHeight="32.0" prefWidth="33.0" />
+                                <Label fx:id="fillColorPickerLabel" prefHeight="32.0" prefWidth="82.0" text="Black" textAlignment="CENTER" wrapText="true" />
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <padding>
+                                <Insets bottom="7.0" top="7.0" />
+                            </padding>
+                        </Separator>
+                        <HBox alignment="BOTTOM_CENTER" prefWidth="120.0" spacing="5.0">
+                            <children>
+                                <Label fx:id="canvasXCoordinate" text="0" />
+                                <Label text="," />
+                                <Label fx:id="canvasYCoordinate" text="0" />
+                            </children>
+                        </HBox>
+                        <MenuButton fx:id="toolBarTextOptions" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="120.0" text="Text " visible="false">
+                            <items>
+                                <CustomMenuItem hideOnClick="false" mnemonicParsing="false">
+                                    <content>
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <TextArea fx:id="toolBarTextArea" promptText="Text to draw" wrapText="true" />
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <TextField fx:id="textSizeText" onAction="#toolBarTextSizeTyped" text="15" />
+                                                        <Label text="px" />
+                                                        <Slider fx:id="textSizeSlider" max="50.0" onMouseClicked="#toolBarTextSizeSlider" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="15.0" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </CustomMenuItem>
+                            </items>
+                        </MenuButton>
+                        <MenuButton fx:id="toolBarPolygonOptions" mnemonicParsing="false" popupSide="RIGHT" prefHeight="32.0" prefWidth="120.0" text="Polygon" visible="false">
+                            <items>
+                                <CustomMenuItem mnemonicParsing="false" text="Unspecified Action">
+                                    <content>
+                                        <VBox>
+                                            <children>
+                                                <Label text="Number of Sides" />
+                                                <TextField fx:id="polygonSides" text="4" />
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </CustomMenuItem>
+                            </items>
+                        </MenuButton>
+                        <Button fx:id="selectedButton" mnemonicParsing="false" onAction="#tempCanvasPlaced" prefHeight="32.0" prefWidth="120.0" text="Place Selection" visible="false" />
+                    </children>
+                </VBox>
+                <VBox alignment="BOTTOM_CENTER" prefHeight="480.0" prefWidth="120.0" spacing="5.0">
+                    <children>
+                        <Label text="Time until save" />
+                        <HBox alignment="CENTER" prefWidth="120.0">
+                            <children>
+                                <Label fx:id="timerMinutes" text="5">
+                                    <padding>
+                                        <Insets right="5.0" />
+                                    </padding>
+                                </Label>
+                                <Label text=":" />
+                                <Label fx:id="timerTens" text="0">
+                                    <padding>
+                                        <Insets left="5.0" />
+                                    </padding>
+                                </Label>
+                                <Label fx:id="timerOnes" text="0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </items>
+        </ToolBar>
+        <TabPane fx:id="tabPane" layoutX="135.0" layoutY="62.0" prefHeight="1009.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
+            <tabs>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 1 ">
+                    <content>
+                        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas0" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas0" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 2">
+                    <content>
+                        <ScrollPane fx:id="scrollPane1" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane1" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas1" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas1" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 3">
+                    <content>
+                        <ScrollPane fx:id="scrollPane2" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane2" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas2" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas2" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 4">
+                    <content>
+                        <ScrollPane fx:id="scrollPane3" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane3" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas3" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas3" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 5">
+                    <content>
+                        <ScrollPane fx:id="scrollPane4" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane4" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas4" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas4" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 6">
+                    <content>
+                        <ScrollPane fx:id="scrollPane5" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane5" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas5" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas5" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" onSelectionChanged="#switchTabs" text="Tab 7">
+                    <content>
+                        <ScrollPane fx:id="scrollPane6" fitToHeight="true" fitToWidth="true" prefViewportHeight="1739.0" prefViewportWidth="1009.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+                            <content>
+                                <StackPane fx:id="stackPane6" alignment="TOP_LEFT" centerShape="false">
+                                    <children>
+                                        <Canvas fx:id="canvas6" height="1168.0" onMouseDragged="#canvasMouseDragged" onMouseEntered="#getCoordinates" onMouseExited="#getCoordinates" onMouseMoved="#getCoordinates" onMousePressed="#canvasMousePressed" onMouseReleased="#canvasMouseReleased" width="1736.0" />
+                                        <Canvas fx:id="tempCanvas6" height="50.0" onMouseDragged="#tempCanvasDragged" visible="false" width="50.0" />
+                                    </children>
+                                </StackPane>
+                            </content>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
