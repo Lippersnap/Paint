@@ -774,6 +774,14 @@ public class PrimaryController implements Initializable {
         gc = canvas.get(tabIndex).getGraphicsContext2D();
         gc.setImageSmoothing(false);
         tempGraphicsContext = tempCanvas.get(tabIndex).getGraphicsContext2D();
+        Color lineColor = (Color)gc.getStroke();
+        Color fillColor = (Color)gc.getFill();
+        lineColorPicker.setValue(lineColor);
+        String lineName = colorLabelFinder(lineColor);
+        lineColorPickerLabel.setText(lineName);
+        fillColorPicker.setValue(fillColor);
+        String fillName = colorLabelFinder(fillColor);
+        fillColorPickerLabel.setText(fillName);
     }
 
     //Functions
